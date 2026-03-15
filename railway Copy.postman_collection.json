@@ -1,0 +1,661 @@
+{
+  "info": {
+    "_postman_id": "e7ca3afd-5d62-49bc-86e5-a63f2cda9ecd",
+    "name": "railway Copy",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "39287115"
+  },
+  "item": [
+    {
+      "name": "user-service",
+      "item": [
+        {
+          "name": "1. register passenger",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const json = pm.response.json();",
+                  "pm.collectionVariables.set('passenger_token', json.token);",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"username\": \"meyashk\",\n    \"fullName\": \"Yash Kumar\",\n    \"email\": \"yashk.n6@gmail.com\",\n    \"phoneNumber\": \"9204121624\",\n    \"password\": \"meyashk\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{gateway_url}}api/auth/register",
+              "host": [
+                "{{gateway_url}}api"
+              ],
+              "path": [
+                "auth",
+                "register"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": null,
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "2. passenger login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const json = pm.response.json();",
+                  "pm.collectionVariables.set('passenger_token', json.token);",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"identifier\": \"meyashk\",\n    \"password\": \"meyashk\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{gateway_url}}api/auth/login",
+              "host": [
+                "{{gateway_url}}api"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "3. admin login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const json = pm.response.json();",
+                  "pm.collectionVariables.set('admin_token', json.token);",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"identifier\": \"admin123@railway.com\",\n    \"password\": \"admin123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{gateway_url}}api/auth/login",
+              "host": [
+                "{{gateway_url}}api"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": null,
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "4. validate passenger token",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{passenger_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{gateway_url}}api/auth/validate",
+              "host": [
+                "{{gateway_url}}api"
+              ],
+              "path": [
+                "auth",
+                "validate"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "5. get passenger",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{passenger_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{gateway_url}}api/users/me",
+              "host": [
+                "{{gateway_url}}api"
+              ],
+              "path": [
+                "users",
+                "me"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "6. get admin",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{admin_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{gateway_url}}api/users/me",
+              "host": [
+                "{{gateway_url}}api"
+              ],
+              "path": [
+                "users",
+                "me"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "7. get all users (admin)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{admin_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{gateway_url}}api/users",
+              "host": [
+                "{{gateway_url}}api"
+              ],
+              "path": [
+                "users"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "train-service",
+      "item": [
+        {
+          "name": "1. add a train (admin)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const json = pm.response.json();",
+                  "pm.collectionVariables.set(\"train_number\", json.trainNumber);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{admin_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"trainNumber\": \"234563\",\n    \"name\": \"Mumbai Banglore Superfast Express\",\n    \"source\": \"Mumbai\",\n    \"destination\": \"Banglore\",\n    \"totalDistanceInKm\": \"867\",\n    \"totalSeats\": \"190\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{gateway_url}}api/trains",
+              "host": [
+                "{{gateway_url}}api"
+              ],
+              "path": [
+                "trains"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "2. get train by train number",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{gateway_url}}api/trains/{{train_number}}",
+              "host": [
+                "{{gateway_url}}api"
+              ],
+              "path": [
+                "trains",
+                "{{train_number}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "3. search for trains",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{gateway_url}}api/trains/search?source=Mumbai&destination=Delhi",
+              "host": [
+                "{{gateway_url}}api"
+              ],
+              "path": [
+                "trains",
+                "search"
+              ],
+              "query": [
+                {
+                  "key": "source",
+                  "value": "Mumbai"
+                },
+                {
+                  "key": "destination",
+                  "value": "Delhi"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "4. get train fare",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{gateway_url}}api/trains/{{train_number}}/fare?trainClass={{trainClass}}",
+              "host": [
+                "{{gateway_url}}api"
+              ],
+              "path": [
+                "trains",
+                "{{train_number}}",
+                "fare"
+              ],
+              "query": [
+                {
+                  "key": "trainClass",
+                  "value": "{{trainClass}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "5. get number of seats available",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{gateway_url}}api/trains/{{train_number}}/available-seats",
+              "host": [
+                "{{gateway_url}}api"
+              ],
+              "path": [
+                "trains",
+                "{{train_number}}",
+                "available-seats"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "6. update available seats (for testing internal)",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{gateway_url}}api/trains/{{train_number}}/available-seats?seatsToUpdate=-10",
+              "host": [
+                "{{gateway_url}}api"
+              ],
+              "path": [
+                "trains",
+                "{{train_number}}",
+                "available-seats"
+              ],
+              "query": [
+                {
+                  "key": "seatsToUpdate",
+                  "value": "-10"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "reservation-service",
+      "item": [
+        {
+          "name": "1. create reservation",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const json = pm.response.json();",
+                  "pm.collectionVariables.set(\"pnr\", json.pnr);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{passenger_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"trainNumber\": {{train_number}},\n    \"trainClass\": \"AC1\",\n    \"passengers\": [\n        { \"name\": \"Yash Kumar\" },\n        { \"name\": \"John Doe\" }\n    ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{gateway_url}}api/reservations",
+              "host": [
+                "{{gateway_url}}api"
+              ],
+              "path": [
+                "reservations"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "2. get user reservations",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{passenger_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{gateway_url}}api/reservations/user",
+              "host": [
+                "{{gateway_url}}api"
+              ],
+              "path": [
+                "reservations",
+                "user"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "3. get reservation status by PNR",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{gateway_url}}api/reservations/pnr/{{pnr}}/status",
+              "host": [
+                "{{gateway_url}}api"
+              ],
+              "path": [
+                "reservations",
+                "pnr",
+                "{{pnr}}",
+                "status"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "4. cancel reservation",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{passenger_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{gateway_url}}api/reservations/pnr/{{pnr}}/cancel",
+              "host": [
+                "{{gateway_url}}api"
+              ],
+              "path": [
+                "reservations",
+                "pnr",
+                "{{pnr}}",
+                "cancel"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "payment-service",
+      "item": [
+        {
+          "name": "1. get payment details",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{gateway_url}}api/payments/{{transaction_id}}",
+              "host": [
+                "{{gateway_url}}api"
+              ],
+              "path": [
+                "payments",
+                "{{transaction_id}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "gateway_url",
+      "value": ""
+    },
+    {
+      "key": "passenger_token",
+      "value": ""
+    },
+    {
+      "key": "admin_token",
+      "value": ""
+    },
+    {
+      "key": "train_id",
+      "value": ""
+    },
+    {
+      "key": "id",
+      "value": ""
+    },
+    {
+      "key": "train_number",
+      "value": ""
+    },
+    {
+      "key": "trainClass",
+      "value": "AC1"
+    },
+    {
+      "key": "pnr",
+      "value": ""
+    },
+    {
+      "key": "transaction_id",
+      "value": ""
+    }
+  ]
+}
